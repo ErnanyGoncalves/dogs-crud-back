@@ -3,6 +3,7 @@ package com.api.dog.adapters;
 import com.api.dog.dtos.DogDTO;
 import com.api.dog.models.Dog;
 import com.api.dog.ports.DogApiPort;
+import com.api.dog.repositories.DogRepositoryPort;
 import com.api.dog.usecases.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
