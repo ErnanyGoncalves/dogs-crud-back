@@ -1,17 +1,21 @@
 package com.api.dog.repositories;
 
 import com.api.dog.models.Dog;
-import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
 @Component
-@AllArgsConstructor
 public class DogRepositoryImpl implements DogRepositoryPort {
-    
+
     private final DogRepository dogRepository;
+
+    @Lazy
+    public DogRepositoryImpl(DogRepository dogRepository) {
+        this.dogRepository = dogRepository;
+    }
 
     @Override
     public List<Dog> findAll() {

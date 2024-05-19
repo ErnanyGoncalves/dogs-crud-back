@@ -22,17 +22,17 @@ public class Dog {
     @NotEmpty(message = "Field name is required.")
     private String name;
     @NotNull(message = "Field age is required.")
-    @Min(value = 0,message = "The minimum age is 0 years.")
-    @Max(value = 20,message = "The maximum age is 20 years.")
+    @Min(value = 0, message = "The minimum age is 0 years.")
+    @Max(value = 20, message = "The maximum age is 20 years.")
     private Integer age;
     @NotNull(message = "Field gender is required.")
     private Gender gender;
     @NotEmpty(message = "Field breed is required.")
     private String breed;
-    @DecimalMin(value = "0.1",message = "The minimum height is 0.1 cm.")
+    @DecimalMin(value = "0.1", message = "The minimum height is 0.1 cm.")
     @NotNull(message = "Field height is required.")
     private Float height;
-    @DecimalMin(value = "0.1",message = "The minimum weight is 0.1 kg.")
+    @DecimalMin(value = "0.1", message = "The minimum weight is 0.1 kg.")
     @NotNull(message = "Field weight is required.")
     private Float weight;
     @Pattern(regexp = "https?://.*\\.(?:png|jpg)|(https://placehold.co/500)", message = "Invalid URL.")
