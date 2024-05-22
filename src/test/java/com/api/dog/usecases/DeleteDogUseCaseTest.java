@@ -1,7 +1,5 @@
 package com.api.dog.usecases;
 
-import com.api.dog.enums.Gender;
-import com.api.dog.models.Dog;
 import com.api.dog.repositories.DogRepositoryPort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +9,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 class DeleteDogUseCaseTest {
     @Mock
@@ -29,6 +29,6 @@ class DeleteDogUseCaseTest {
         Long id = 1L;
         deleteDogUseCase.deleteDog(id);
 
-        Mockito.verify(dogRepository, Mockito.times(1)).delete(id);
+        verify(dogRepository, times(1)).delete(id);
     }
 }

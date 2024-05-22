@@ -11,6 +11,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 class EditDogUseCaseTest {
 
@@ -41,6 +43,6 @@ class EditDogUseCaseTest {
 
         editDogUseCase.editDog(id,mockDog);
 
-        Mockito.verify(dogRepository, Mockito.times(1)).edit(id,mockDog);
+        verify(dogRepository, times(1)).edit(id,mockDog);
     }
 }

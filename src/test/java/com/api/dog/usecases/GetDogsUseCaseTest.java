@@ -18,7 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 class GetDogsUseCaseTest {
     @Mock
@@ -66,7 +67,7 @@ class GetDogsUseCaseTest {
 
         when(dogRepository.findAll()).thenReturn(dogsFromRepo);
 
-        when(dogMapper.toDto(Mockito.any(Dog.class))).thenAnswer(invocation -> {
+        when(dogMapper.toDto(any(Dog.class))).thenAnswer(invocation -> {
             Dog dog = invocation.getArgument(0);
             return dogToDtoMap.get(dog.getId());
         });
@@ -74,8 +75,8 @@ class GetDogsUseCaseTest {
         List<DogDTO> result = getDogsUseCase.getDogs();
 
         assertEquals(expectedDogs, result);
-        Mockito.verify(dogRepository, Mockito.times(1)).findAll();
-        Mockito.verify(dogMapper, Mockito.times(dogsFromRepo.size()))
-                .toDto(Mockito.any(Dog.class));
+        verify(dogRepository, times(1)).findAll();
+        verify(dogMapper, times(dogsFromRepo.size()))
+                .toDto(any(Dog.class));
     }
 }

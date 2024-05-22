@@ -16,6 +16,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class GetDogUseCaseTest {
 
@@ -50,14 +51,14 @@ class GetDogUseCaseTest {
 
         DogDTO mockDog = new DogDTO(id, name, age,gender, breed,height,weight, photoUrl,about);
 
-        Mockito.when(dogRepository.findById(id)).thenReturn(Optional.of(dog));
-        Mockito.when(dogMapper.toDto(dog)).thenReturn(mockDog);
+        when(dogRepository.findById(id)).thenReturn(Optional.of(dog));
+        when(dogMapper.toDto(dog)).thenReturn(mockDog);
 
         DogDTO result = getDogUseCase.getDog(id);
 
         assertEquals(mockDog, result);
-        Mockito.verify(dogRepository, Mockito.times(1)).findById(id);
-        Mockito.verify(dogMapper, Mockito.times(1)).toDto(dog);
+        verify(dogRepository, times(1)).findById(id);
+        verify(dogMapper, times(1)).toDto(dog);
 
 
     }
@@ -66,11 +67,11 @@ class GetDogUseCaseTest {
     public void testGetDogNotFound() {
 
         Long id = 1L;
-        Mockito.when(dogRepository.findById(id)).thenReturn(Optional.empty());
+        when(dogRepository.findById(id)).thenReturn(Optional.empty());
 
         assertThrows(NoSuchElementException.class, () -> getDogUseCase.getDog(id));
-        Mockito.verify(dogRepository, Mockito.times(1)).findById(id);
-        Mockito.verifyNoInteractions(dogMapper);
+        verify(dogRepository, times(1)).findById(id);
+        verifyNoInteractions(dogMapper);
 
     }
 }
