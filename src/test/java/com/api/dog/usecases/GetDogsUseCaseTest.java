@@ -4,12 +4,11 @@ import com.api.dog.dtos.DogDTO;
 import com.api.dog.enums.Gender;
 import com.api.dog.mappers.DogMapper;
 import com.api.dog.models.Dog;
-import com.api.dog.repositories.DogRepositoryPort;
+import com.api.dog.repositories.DogRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
@@ -23,7 +22,7 @@ import static org.mockito.Mockito.*;
 
 class GetDogsUseCaseTest {
     @Mock
-    private DogRepositoryPort dogRepository;
+    private DogRepository dogRepository;
 
     @Mock
     private DogMapper dogMapper;

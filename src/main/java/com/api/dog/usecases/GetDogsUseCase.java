@@ -2,7 +2,7 @@ package com.api.dog.usecases;
 
 import com.api.dog.dtos.DogDTO;
 import com.api.dog.mappers.DogMapper;
-import com.api.dog.repositories.DogRepositoryPort;
+import com.api.dog.repositories.DogRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class GetDogsUseCase {
 
-    private final DogRepositoryPort dogRepository;
+    private final DogRepository dogRepository;
     private final DogMapper dogMapper;
 
     public List<DogDTO> getDogs() {

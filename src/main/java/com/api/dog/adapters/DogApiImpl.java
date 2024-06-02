@@ -6,6 +6,7 @@ import com.api.dog.ports.DogApiPort;
 import com.api.dog.services.DogService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -36,13 +37,13 @@ public class DogApiImpl implements DogApiPort {
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     @Operation(summary = "POST Dog", description = "Creates a dog.")
-    public void createDog(@RequestBody Dog dog) {
+    public void createDog(@Valid  @RequestBody Dog dog) {
         dogService.createDog(dog);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "PUT Dog", description = "Updates a dog from an existing id.")
-    public void editDog(@PathVariable("id") Long id, @RequestBody Dog newDogData) {
+    public void editDog(@PathVariable("id") Long id, @Valid @RequestBody Dog newDogData) {
         dogService.editDog(id, newDogData);
     }
 

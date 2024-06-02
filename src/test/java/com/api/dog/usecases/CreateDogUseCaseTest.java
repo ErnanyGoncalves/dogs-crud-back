@@ -2,6 +2,7 @@ package com.api.dog.usecases;
 
 import com.api.dog.enums.Gender;
 import com.api.dog.models.Dog;
+import com.api.dog.repositories.DogRepository;
 import com.api.dog.repositories.DogRepositoryPort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ import static org.mockito.Mockito.verify;
 class CreateDogUseCaseTest {
 
     @Mock
-    private DogRepositoryPort dogRepository;
+    private DogRepository dogRepository;
 
     @InjectMocks
     private CreateDogUseCase createDogUseCase;

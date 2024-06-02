@@ -78,4 +78,11 @@ class DogTest {
         Set<ConstraintViolation<Dog>> violations = validator.validate(dog);
         assertEquals(1, violations.size());
     }
+
+    @Test
+    void testDogWithLongNameAndBreed() {
+        Dog dog = new Dog(1L, "A very long name", 1, Gender.MALE, "A very long breed in this field here", 5F, 10F, null, "Some text");
+        Set<ConstraintViolation<Dog>> violations = validator.validate(dog);
+        assertEquals(2, violations.size());
+    }
 }

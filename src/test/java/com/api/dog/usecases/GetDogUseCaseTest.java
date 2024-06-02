@@ -2,14 +2,14 @@ package com.api.dog.usecases;
 
 import com.api.dog.dtos.DogDTO;
 import com.api.dog.enums.Gender;
+import com.api.dog.exceptions.DogNotFoundException;
 import com.api.dog.mappers.DogMapper;
 import com.api.dog.models.Dog;
-import com.api.dog.repositories.DogRepositoryPort;
+import com.api.dog.repositories.DogRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.NoSuchElementException;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 class GetDogUseCaseTest {
 
     @Mock
-    private DogRepositoryPort dogRepository;
+    private DogRepository dogRepository;
 
     @Mock
     private DogMapper dogMapper;
@@ -59,19 +59,18 @@ class GetDogUseCaseTest {
         assertEquals(mockDog, result);
         verify(dogRepository, times(1)).findById(id);
         verify(dogMapper, times(1)).toDto(dog);
-
-
     }
 
     @Test
-    public void testGetDogNotFound() {
-
+    public void testGetDogThrowsDogNotFoundException() {
         Long id = 1L;
+
         when(dogRepository.findById(id)).thenReturn(Optional.empty());
 
-        assertThrows(NoSuchElementException.class, () -> getDogUseCase.getDog(id));
-        verify(dogRepository, times(1)).findById(id);
-        verifyNoInteractions(dogMapper);
+        assertThrows(DogNotFoundException.class, () -> getDogUseCase.getDog(id));
 
+        verify(dogRepository, times(1)).findById(id);
+        verify(dogMapper, never()).toDto(any(Dog.class));
     }
+
 }

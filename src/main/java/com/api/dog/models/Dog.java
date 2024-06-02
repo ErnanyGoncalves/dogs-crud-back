@@ -20,6 +20,7 @@ public class Dog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotEmpty(message = "Field name is required.")
+    @Size(max= 12,message = "Field name can not have more than 12 characters.")
     private String name;
     @NotNull(message = "Field age is required.")
     @Min(value = 0, message = "The minimum age is 0 years.")
@@ -28,6 +29,7 @@ public class Dog {
     @NotNull(message = "Field gender is required.")
     private Gender gender;
     @NotEmpty(message = "Field breed is required.")
+    @Size(max= 31,message = "Field breed can not have more than 31 characters.")
     private String breed;
     @DecimalMin(value = "0.1", message = "The minimum height is 0.1 cm.")
     @NotNull(message = "Field height is required.")
