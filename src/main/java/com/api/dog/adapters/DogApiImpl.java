@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/dogs")
+@CrossOrigin(origins = "http://localhost:4200")
 @AllArgsConstructor
 @Tag(name = "Dog Controller", description = "Dog APIs")
 public class DogApiImpl implements DogApiPort {

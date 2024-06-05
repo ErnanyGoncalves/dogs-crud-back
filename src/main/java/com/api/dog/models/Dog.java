@@ -32,13 +32,16 @@ public class Dog {
     @Size(max= 31,message = "Field breed can not have more than 31 characters.")
     private String breed;
     @DecimalMin(value = "0.1", message = "The minimum height is 0.1 cm.")
+    @DecimalMax(value = "0.1", message = "The minimum height is 112 cm.")
     @NotNull(message = "Field height is required.")
     private Float height;
     @DecimalMin(value = "0.1", message = "The minimum weight is 0.1 kg.")
+    @DecimalMax(value = "0.1", message = "The minimum weight is 156 kg.")
     @NotNull(message = "Field weight is required.")
     private Float weight;
     @Pattern(regexp = "https?://.*\\.(?:png|jpg)|(https://placehold.co/500)", message = "Invalid URL.")
     private String photo = "https://placehold.co/500";
+    @Size(max= 500,message = "Field about can not have more than 12 characters.")
     private String about;
 
     public Dog(Long id, String name, Integer age, Gender gender, String breed, Float height, Float weight, String photo, String about) {
