@@ -1,10 +1,7 @@
 package com.api.dog.models;
 
 import com.api.dog.enums.Gender;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,16 +29,17 @@ public class Dog {
     @Size(max= 31,message = "Field breed can not have more than 31 characters.")
     private String breed;
     @DecimalMin(value = "0.1", message = "The minimum height is 0.1 cm.")
-    @DecimalMax(value = "0.1", message = "The minimum height is 112 cm.")
+    @DecimalMax(value = "112", message = "The minimum height is 112 cm.")
     @NotNull(message = "Field height is required.")
     private Float height;
     @DecimalMin(value = "0.1", message = "The minimum weight is 0.1 kg.")
-    @DecimalMax(value = "0.1", message = "The minimum weight is 156 kg.")
+    @DecimalMax(value = "156", message = "The minimum weight is 156 kg.")
     @NotNull(message = "Field weight is required.")
     private Float weight;
     @Pattern(regexp = "https?://.*\\.(?:png|jpg)|(https://placehold.co/500)", message = "Invalid URL.")
     private String photo = "https://placehold.co/500";
-    @Size(max= 500,message = "Field about can not have more than 12 characters.")
+    @Column(columnDefinition = "TEXT")
+    @Size(max= 500,message = "Field about can not have more than 500 characters.")
     private String about;
 
     public Dog(Long id, String name, Integer age, Gender gender, String breed, Float height, Float weight, String photo, String about) {
