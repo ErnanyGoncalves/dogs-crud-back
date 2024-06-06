@@ -1,9 +1,6 @@
 package com.api.dog.exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.ConstraintViolationException;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -67,6 +64,21 @@ public class DogExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleTypeMismatchException(MethodArgumentTypeMismatchException ex,
                                                               WebRequest request) {
         return handleExceptionInternal(ex, null, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex,
+                                                                 WebRequest request) {
+        return handleExceptionInternal(ex, null, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        Throwable mostSpecificCause = ex.getMostSpecificCause();
+        if (mostSpecificCause instanceof IllegalArgumentException) {
+            return handleIllegalArgumentException((IllegalArgumentException) mostSpecificCause, request);
+        }
+        return handleExceptionInternal(ex, null, headers, status, request);
     }
 
     @Override

@@ -56,7 +56,7 @@ class DogTest {
     }
 
     @Test
-    void testDogWithErrorsInAgeHeightWeight1() {
+    void testDogWithErrorsInAgeHeightWeight() {
         Dog dog = new Dog(1L, "Dog name", -1, Gender.MALE, "Dog breed", 0F, 0F, null, null);
 
         Set<ConstraintViolation<Dog>> violations = validator.validate(dog);
@@ -84,5 +84,13 @@ class DogTest {
         Dog dog = new Dog(1L, "A very long name", 1, Gender.MALE, "A very long breed in this field here", 5F, 10F, null, "Some text");
         Set<ConstraintViolation<Dog>> violations = validator.validate(dog);
         assertEquals(2, violations.size());
+    }
+    @Test
+    void testDogWithErrorsInHeightWeightAbout() {
+        String longAbout = "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii";
+        Dog dog = new Dog(1L, "Dog name", 1, Gender.MALE, "Dog breed", 500F, 500F, null, longAbout);
+
+        Set<ConstraintViolation<Dog>> violations = validator.validate(dog);
+        assertEquals(3, violations.size());
     }
 }
