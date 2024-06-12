@@ -16,7 +16,7 @@ public class EditDogUseCase {
 
     public void editDog(Long id, Dog newDogData) {
         Optional<Dog> dog = dogRepository.findById(id);
-        if(dog.isEmpty()){
+        if (dog.isEmpty()) {
             throw new DogNotFoundException(id);
         }
         newDogData.setId(id);

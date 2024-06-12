@@ -23,10 +23,10 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class DogExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(DogNotFoundException.class)
-    public ResponseEntity<StandardError> dogNotFound(DogNotFoundException e, HttpServletRequest request){
+    public ResponseEntity<StandardError> dogNotFound(DogNotFoundException e, HttpServletRequest request) {
         String error = "Dog not found.";
         HttpStatus status = HttpStatus.NOT_FOUND;
-        StandardError err = new StandardError(Instant.now(),status.value(),error,e.getMessage(),request.getRequestURI());
+        StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
 
@@ -93,13 +93,13 @@ public class DogExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     private StandardError obtainResponse(HttpStatusCode status, Exception ex,
-                                                WebRequest request) {
+                                         WebRequest request) {
 
         final HttpStatusCode newStatus = Optional.ofNullable(status)
                 .orElse(HttpStatusCode.valueOf(500));
         final String message = HttpStatus.valueOf(newStatus.value()).getReasonPhrase();
 
-        return new StandardError(Instant.now(),newStatus.value(), ex.getMessage(), message,
+        return new StandardError(Instant.now(), newStatus.value(), ex.getMessage(), message,
                 request.getDescription(false));
     }
 

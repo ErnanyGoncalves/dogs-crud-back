@@ -1,21 +1,15 @@
-package com.api.dog.models;
+package com.api.dog.dtos;
+
 
 import com.api.dog.enums.Gender;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-import java.util.Optional;
-import java.util.function.Predicate;
-
-@Entity
-@Data
-@NoArgsConstructor
-public class Dog {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Getter
+@AllArgsConstructor
+public class DogPostReqDTO {
     @NotEmpty(message = "Field name is required.")
     @Size(max = 12, message = "Field name can not have more than 12 characters.")
     private String name;
@@ -29,30 +23,14 @@ public class Dog {
     @Size(max = 31, message = "Field breed can not have more than 31 characters.")
     private String breed;
     @DecimalMin(value = "0.1", message = "The minimum height is 0.1 cm.")
-    @DecimalMax(value = "112", message = "The minimum height is 112 cm.")
+    @DecimalMax(value = "112", message = "The maximum height is 112 cm.")
     @NotNull(message = "Field height is required.")
     private Float height;
     @DecimalMin(value = "0.1", message = "The minimum weight is 0.1 kg.")
     @DecimalMax(value = "156", message = "The minimum weight is 156 kg.")
     @NotNull(message = "Field weight is required.")
     private Float weight;
-//    @NotEmpty(message = "You need to upload a photo.")
-    private String photo;
     @Column(columnDefinition = "TEXT")
     @Size(max = 500, message = "Field about can not have more than 500 characters.")
     private String about;
-
-    public Dog(Long id, String name, Integer age, Gender gender, String breed, Float height, Float weight, String photo, String about) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.gender = gender;
-        this.breed = breed;
-        this.height = height;
-        this.weight = weight;
-//        Optional.ofNullable(photo)
-//                .filter(Predicate.not(String::isBlank))
-//                .ifPresent(img -> this.photo = img);
-        this.about = about;
-    }
 }

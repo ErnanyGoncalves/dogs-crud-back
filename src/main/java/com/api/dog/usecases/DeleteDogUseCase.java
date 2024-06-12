@@ -15,7 +15,7 @@ public class DeleteDogUseCase {
 
     public void deleteDog(Long id) {
         Optional<Dog> dog = dogRepository.findById(id);
-        if(dog.isEmpty()){
+        if (dog.isEmpty()) {
             throw new DogNotFoundException(id);
         }
         dogRepository.deleteById(id);

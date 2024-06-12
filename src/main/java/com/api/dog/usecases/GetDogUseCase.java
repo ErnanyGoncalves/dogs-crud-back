@@ -15,6 +15,6 @@ public class GetDogUseCase {
     private final DogMapper dogMapper;
 
     public DogDTO getDog(Long id) {
-        return dogRepository.findById(id).map(this.dogMapper::toDto).orElseThrow(()-> new DogNotFoundException(id));
+        return dogRepository.findById(id).map(this.dogMapper::toDto).orElseThrow(() -> new DogNotFoundException(id));
     }
 }
