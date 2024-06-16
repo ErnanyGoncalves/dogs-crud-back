@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -25,7 +24,6 @@ import java.util.List;
 public class DogApiImpl implements DogApiPort {
 
     private final DogService dogService;
-    private final S3Service s3Service;
 
     @GetMapping
     @Operation(summary = "GET Dogs", description = "Returns a list of dogs.")
@@ -44,29 +42,21 @@ public class DogApiImpl implements DogApiPort {
     @ResponseStatus(value = HttpStatus.CREATED)
     @Operation(summary = "POST Dog", description = "Creates a dog.")
     public void createDog(@RequestPart("dog") @Valid Dog dog, @RequestPart("photo") MultipartFile photo) throws IOException {
-
-        String photoPath = System.getProperty("java.io.tmpdir") + "/" + photo.getOriginalFilename();
-        File localFile = new File(photoPath);
-        photo.transferTo(localFile);
-
-        s3Service.uploadFile(photo.getOriginalFilename(), photoPath);
-
-        dog.setPhoto("http://localhost:4566/dog-bucket/" + photo.getOriginalFilename());
-
-        dogService.createDog(dog);
+        dogService.createDog(dog, photo);
     }
 
 
     @PutMapping("/{id}")
     @Operation(summary = "PUT Dog", description = "Updates a dog from an existing id.")
-    public void editDog(@PathVariable("id") Long id, @Valid @RequestBody Dog newDogData) {
-        dogService.editDog(id, newDogData);
+    public void editDog(@PathVariable("id") Long id,@RequestPart("dog") @Valid Dog newDogData, @RequestPart(value="photo",required = false) MultipartFile photo) throws IOException{
+        dogService.editDog(id,newDogData, photo);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @Operation(summary = "DELETE Dog", description = "Deletes a dog from an existing id.")
     public void deleteDog(@PathVariable("id") Long id) {
+
         dogService.deleteDog(id);
     }
 }

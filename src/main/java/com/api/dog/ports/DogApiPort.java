@@ -15,7 +15,7 @@ public interface DogApiPort {
 
     void createDog(Dog dog, MultipartFile photo) throws IOException;
 
-    void editDog(Long id, Dog newDogData);
+    void editDog(Long id, Dog newDogData, MultipartFile photo) throws IOException;
 
     void deleteDog(Long id);
 }
